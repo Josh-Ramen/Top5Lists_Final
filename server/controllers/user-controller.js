@@ -10,11 +10,18 @@ loginUser = async (req, res) => {
                 .status(400)
                 .json({ errorMessage: "Please enter all required fields." });
         }
-        const existingUser = await User.findOne({ email: email });
+        let existingUser = null;
+        if (email.includes("@")) {
+            console.log("Logging in with email");
+            existingUser = await User.findOne({ email: email });
+        } else {
+            console.log("Logging in with username");
+            existingUser = await User.findOne({ username: email });
+        }
         if (!existingUser) {
             return res
                 .status(400)
-                .json({ errorMessage: "That email is not registered." });
+                .json({ errorMessage: "That email or username is not registered." });
         }
 
         console.log("User exists!")
@@ -64,8 +71,8 @@ getLoggedIn = async (req, res) => {
 
 registerUser = async (req, res) => {
     try {
-        const { firstName, lastName, email, password, passwordVerify } = req.body;
-        if (!firstName || !lastName || !email || !password || !passwordVerify) {
+        const { firstName, lastName, username, email, password, passwordVerify } = req.body;
+        if (!firstName || !lastName || !username || !email || !password || !passwordVerify) {
             return res
                 .status(400)
                 .json({ errorMessage: "Please enter all required fields." });
@@ -84,7 +91,7 @@ registerUser = async (req, res) => {
                     errorMessage: "Please enter the same password twice."
                 })
         }
-        const existingUser = await User.findOne({ email: email });
+        let existingUser = await User.findOne({ email: email });
         if (existingUser) {
             return res
                 .status(400)
@@ -93,13 +100,22 @@ registerUser = async (req, res) => {
                     errorMessage: "An account with this email address already exists."
                 })
         }
+        existingUser = await User.findOne({ username: username });
+        if (existingUser) {
+            return res
+                .status(400)
+                .json({
+                    success: false,
+                    errorMessage: "An account with this username already exists."
+                })
+        }
 
         const saltRounds = 10;
         const salt = await bcrypt.genSalt(saltRounds);
         const passwordHash = await bcrypt.hash(password, salt);
 
         const newUser = new User({
-            firstName, lastName, email, passwordHash
+            firstName, lastName, username, email, passwordHash
         });
         const savedUser = await newUser.save();
 
@@ -115,6 +131,7 @@ registerUser = async (req, res) => {
             user: {
                 firstName: savedUser.firstName,
                 lastName: savedUser.lastName,
+                username: savedUser.username,
                 email: savedUser.email
             }
         }).send();

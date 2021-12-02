@@ -15,6 +15,7 @@ export default function RegisterScreen() {
         auth.registerUser({
             firstName: formData.get('firstName'),
             lastName: formData.get('lastName'),
+            username: formData.get('username'),
             email: formData.get('email'),
             password: formData.get('password'),
             passwordVerify: formData.get('passwordVerify')
@@ -26,7 +27,6 @@ export default function RegisterScreen() {
                 <CssBaseline />
                 <Box
                     sx={{
-                        marginTop: 8,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -39,7 +39,7 @@ export default function RegisterScreen() {
                         Sign up
                     </Typography>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                        <Grid container spacing={2}>
+                        <Grid container spacing={1}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     autoComplete="fname"
@@ -59,6 +59,16 @@ export default function RegisterScreen() {
                                     label="Last Name"
                                     name="lastName"
                                     autoComplete="lname"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="username"
+                                    label="Username"
+                                    name="username"
+                                    autoComplete="username"
                                 />
                             </Grid>
                             <Grid item xs={12}>
