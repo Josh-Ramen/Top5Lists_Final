@@ -18,7 +18,7 @@ function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const [editActive, setEditActive] = useState(false);
     const [text, setText] = useState("");
-    const { idNamePair } = props;
+    const { list } = props;
 
     function handleLoadList(event, id) {
         if (!event.target.disabled) {
@@ -58,12 +58,12 @@ function ListCard(props) {
 
     let cardElement =
         <ListItem
-            id={idNamePair._id}
-            key={idNamePair._id}
+            id={list._id}
+            key={list._id}
             sx={{ marginTop: '15px', display: 'flex', p: 1 }}
             button
             onClick={(event) => {
-                handleLoadList(event, idNamePair._id)
+                handleLoadList(event, list._id)
             }
             }
             style={{
@@ -71,7 +71,7 @@ function ListCard(props) {
                 width: '100%'
             }}
         >
-                <Box sx={{ p: 1, flexGrow: 1 }}>{idNamePair.name}</Box>
+                <Box sx={{ p: 1, flexGrow: 1 }}>{list.name}</Box>
                 <Box sx={{ p: 1 }}>
                     <IconButton onClick={handleToggleEdit} aria-label='edit'>
                         <EditIcon style={{fontSize:'48pt'}} />
@@ -79,7 +79,7 @@ function ListCard(props) {
                 </Box>
                 <Box sx={{ p: 1 }}>
                     <IconButton onClick={(event) => {
-                        handleDeleteList(event, idNamePair._id)
+                        handleDeleteList(event, list._id)
                     }} aria-label='delete'>
                         <DeleteIcon style={{fontSize:'48pt'}} />
                     </IconButton>
@@ -92,14 +92,14 @@ function ListCard(props) {
                 margin="normal"
                 required
                 fullWidth
-                id={"list-" + idNamePair._id}
+                id={"list-" + list._id}
                 label="Top 5 List Name"
                 name="name"
                 autoComplete="Top 5 List Name"
                 className='list-card'
                 onKeyPress={handleKeyPress}
                 onChange={handleUpdateText}
-                defaultValue={idNamePair.name}
+                defaultValue={list.name}
                 inputProps={{style: {fontSize: 48}}}
                 InputLabelProps={{style: {fontSize: 24}}}
                 autoFocus
