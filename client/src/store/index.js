@@ -1,9 +1,6 @@
 import { createContext, useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import jsTPS from '../common/jsTPS'
 import api from '../api'
-import MoveItem_Transaction from '../transactions/MoveItem_Transaction'
-import UpdateItem_Transaction from '../transactions/UpdateItem_Transaction'
 import AuthContext from '../auth'
 /*
     This is our global data store. Note that it uses the Flux design pattern,
@@ -28,9 +25,6 @@ export const GlobalStoreActionType = {
     SET_ITEM_EDIT_ACTIVE: "SET_ITEM_EDIT_ACTIVE",
     SET_LIST_NAME_EDIT_ACTIVE: "SET_LIST_NAME_EDIT_ACTIVE"
 }
-
-// WE'LL NEED THIS TO PROCESS TRANSACTIONS
-const tps = new jsTPS();
 
 // WITH THIS WE'RE MAKING OUR GLOBAL DATA STORE
 // AVAILABLE TO THE REST OF THE APPLICATION
@@ -199,7 +193,6 @@ function GlobalStoreContextProvider(props) {
             payload: {}
         });
         
-        tps.clearAllTransactions();
         history.push("/");
     }
 
@@ -218,7 +211,6 @@ function GlobalStoreContextProvider(props) {
         };
         const response = await api.createTop5List(payload);
         if (response.data.success) {
-            tps.clearAllTransactions();
             let newList = response.data.top5List;
             storeReducer({
                 type: GlobalStoreActionType.CREATE_NEW_LIST,
@@ -285,10 +277,8 @@ function GlobalStoreContextProvider(props) {
         });
     }
 
-    // THE FOLLOWING 8 FUNCTIONS ARE FOR COORDINATING THE UPDATING
-    // OF A LIST, WHICH INCLUDES DEALING WITH THE TRANSACTION STACK. THE
-    // FUNCTIONS ARE setCurrentList, addMoveItemTransaction, addUpdateItemTransaction,
-    // moveItem, updateItem, updateCurrentList, undo, and redo
+    // THE FOLLOWING 8 FUNCTIONS ARE FOR COORDINATING THE UPDATING OF A LIST
+    // FUNCTIONS ARE moveItem, updateItem, updateCurrentList, undo, and redo
     store.setCurrentList = async function (id) {
         let response = await api.getTop5ListById(id);
         if (response.data.success && response.data.top5List.ownerEmail === auth.user.email) {
@@ -302,26 +292,6 @@ function GlobalStoreContextProvider(props) {
                 });
                 history.push("/top5list/" + top5List._id);
             }
-        }
-    }
-
-    store.addMoveItemTransaction = function (start, end) {
-        if (start !== end) {
-            let transaction = new MoveItem_Transaction(store, start, end);
-            tps.addTransaction(transaction);
-        }
-    }
-
-    store.addUpdateItemTransaction = function (index, newText) {
-        let oldText = store.currentList.items[index];
-        if (oldText !== newText) {
-            let transaction = new UpdateItem_Transaction(store, index, oldText, newText);
-            tps.addTransaction(transaction);
-        } else {
-            storeReducer({
-                type: GlobalStoreActionType.SET_CURRENT_LIST,
-                payload: store.currentList
-            });
         }
     }
 
@@ -360,22 +330,6 @@ function GlobalStoreContextProvider(props) {
                 payload: store.currentList
             });
         }
-    }
-
-    store.undo = function () {
-        tps.undoTransaction();
-    }
-
-    store.redo = function () {
-        tps.doTransaction();
-    }
-
-    store.canUndo = function() {
-        return tps.hasTransactionToUndo();
-    }
-
-    store.canRedo = function() {
-        return tps.hasTransactionToRedo();
     }
 
     // THIS FUNCTION ENABLES THE PROCESS OF EDITING A LIST NAME

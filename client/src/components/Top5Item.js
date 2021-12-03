@@ -49,13 +49,13 @@ function Top5Item(props) {
         setDraggedTo(false);
 
         // UPDATE THE LIST
-        store.addMoveItemTransaction(sourceId, targetId);
+        store.moveItem(sourceId, targetId);
     }
 
     function handleKeyPress(event) {
         if (event.code === "Enter") {
             let id = event.target.id.substring("list-".length);
-            store.addUpdateItemTransaction(id - 1, editedText);
+            store.updateItem(id - 1, editedText);
             setEditActive(false);
         }
     }
