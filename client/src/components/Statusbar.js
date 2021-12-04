@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { GlobalStoreContext } from '../store'
-import { Typography } from '@mui/material'
+import { Typography, IconButton, Grid } from '@mui/material'
+import AddIcon from '@mui/icons-material/Add';
 
 /*
     Our Status bar React component goes at the bottom of our UI.
@@ -9,12 +10,23 @@ import { Typography } from '@mui/material'
 */
 function Statusbar() {
     const { store } = useContext(GlobalStoreContext);
-    let text ="";
-    if (store.currentList)
-        text = store.currentList.name;
+
+    function handleCreateNewList() {
+        store.createNewList();
+    }
+
     return (
         <div id="top5-statusbar">
-            <Typography variant="h4">{text}</Typography>
+            {store.mode === "home" &&
+            <Grid container justifyContent="center" alignItems="center">
+                <Grid item>
+                    <IconButton disabled={store.editActive}>
+                        <AddIcon onClick={handleCreateNewList} style={{ color: "black", opacity: store.editActive ? 0.25 : 1, fontSize: "36pt" }}/>
+                    </IconButton>
+                </Grid>
+                <Grid item><Typography variant="h4">Your Lists</Typography></Grid>
+            </Grid>
+            }
         </div>
     );
 }

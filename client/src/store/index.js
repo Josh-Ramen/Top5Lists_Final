@@ -21,7 +21,8 @@ export const GlobalStoreActionType = {
     MARK_LIST_FOR_DELETION: "MARK_LIST_FOR_DELETION",
     UNMARK_LIST_FOR_DELETION: "UNMARK_LIST_FOR_DELETION",
     SET_CURRENT_LIST: "SET_CURRENT_LIST",
-    SET_EDIT_ACTIVE: "SET_EDIT_ACTIVE"
+    SET_EDIT_ACTIVE: "SET_EDIT_ACTIVE",
+    RESET_STORE: "RESET_STORE"
 }
 
 // WITH THIS WE'RE MAKING OUR GLOBAL DATA STORE
@@ -33,7 +34,8 @@ function GlobalStoreContextProvider(props) {
         currentList: null,
         newListCounter: 0,
         editActive: false,
-        listMarkedForDeletion: null
+        listMarkedForDeletion: null,
+        mode: null
     });
     const history = useHistory();
 
@@ -52,7 +54,8 @@ function GlobalStoreContextProvider(props) {
                     currentList: null,
                     newListCounter: store.newListCounter,
                     editActive: false,
-                    listMarkedForDeletion: null
+                    listMarkedForDeletion: null,
+                    mode: "home"
                 })
             }
             // CREATE A NEW LIST AND LOAD IT IN
@@ -62,17 +65,19 @@ function GlobalStoreContextProvider(props) {
                     currentList: payload,
                     newListCounter: store.newListCounter + 1,
                     editActive: true,
-                    listMarkedForDeletion: null
+                    listMarkedForDeletion: null,
+                    mode: "home"
                 })
             }
             // GET ALL THE LISTS SO WE CAN PRESENT THEM
             case GlobalStoreActionType.LOAD_LISTS: {
                 return setStore({
-                    lists: payload,
+                    lists: payload.lists,
                     currentList: null,
                     newListCounter: store.newListCounter,
                     editActive: false,
-                    listMarkedForDeletion: null
+                    listMarkedForDeletion: null,
+                    mode: payload.mode
                 });
             }
             // PREPARE TO DELETE A LIST
@@ -82,7 +87,8 @@ function GlobalStoreContextProvider(props) {
                     currentList: null,
                     newListCounter: store.newListCounter,
                     editActive: false,
-                    listMarkedForDeletion: payload
+                    listMarkedForDeletion: payload,
+                    mode: store.mode
                 });
             }
             // STOP PREPARING TO DELETE A LIST
@@ -92,7 +98,8 @@ function GlobalStoreContextProvider(props) {
                     currentList: null,
                     newListCounter: store.newListCounter,
                     editActive: false,
-                    listMarkedForDeletion: null
+                    listMarkedForDeletion: null,
+                    mode: store.mode
                 });
             }
             // LOAD A LIST FOR EDITING
@@ -102,8 +109,20 @@ function GlobalStoreContextProvider(props) {
                     currentList: payload,
                     newListCounter: store.newListCounter,
                     editActive: true,
-                    listMarkedForDeletion: null
+                    listMarkedForDeletion: null,
+                    mode: store.mode
                 });
+            }
+            // RESET TO DEFAULTS
+            case GlobalStoreActionType.RESET_STORE: {
+                return setStore({
+                    lists: [],
+                    currentList: null,
+                    newListCounter: 0,
+                    editActive: false,
+                    listMarkedForDeletion: null,
+                    mode: null
+                })
             }
             default:
                 return store;
@@ -120,7 +139,7 @@ function GlobalStoreContextProvider(props) {
             type: GlobalStoreActionType.CLOSE_CURRENT_LIST,
             payload: {}
         });
-        
+
         history.push("/");
     }
 
@@ -160,7 +179,10 @@ function GlobalStoreContextProvider(props) {
         if (response.data.success) {
             storeReducer({
                 type: GlobalStoreActionType.LOAD_LISTS,
-                payload: response.data.data
+                payload: {
+                    lists: response.data.data,
+                    mode: "home"
+                }
             });
         }
         else {
@@ -235,6 +257,14 @@ function GlobalStoreContextProvider(props) {
         if (response.data.success) {
             store.loadLists();
         }
+    }
+
+    // FUNCTION TO RESET STORE ON LOGOUT
+    store.resetStore = function () {
+        storeReducer({
+            type: GlobalStoreActionType.RESET_STORE,
+            payload: null
+        });
     }
 
     return (
