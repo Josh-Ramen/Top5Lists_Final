@@ -19,7 +19,6 @@ function ListCardUnpublished(props) {
 
     function handleLoadList(event, id) {
         event.stopPropagation();
-        console.log("loading list");
         store.setCurrentList(id);
     }
 

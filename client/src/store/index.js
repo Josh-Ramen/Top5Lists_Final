@@ -15,15 +15,13 @@ export const GlobalStoreContext = createContext({});
 // THESE ARE ALL THE TYPES OF UPDATES TO OUR GLOBAL
 // DATA STORE STATE THAT CAN BE PROCESSED
 export const GlobalStoreActionType = {
-    CHANGE_LIST_NAME: "CHANGE_LIST_NAME",
     CLOSE_CURRENT_LIST: "CLOSE_CURRENT_LIST",
     CREATE_NEW_LIST: "CREATE_NEW_LIST",
     LOAD_LISTS: "LOAD_LISTS",
     MARK_LIST_FOR_DELETION: "MARK_LIST_FOR_DELETION",
     UNMARK_LIST_FOR_DELETION: "UNMARK_LIST_FOR_DELETION",
     SET_CURRENT_LIST: "SET_CURRENT_LIST",
-    SET_ITEM_EDIT_ACTIVE: "SET_ITEM_EDIT_ACTIVE",
-    SET_LIST_NAME_EDIT_ACTIVE: "SET_LIST_NAME_EDIT_ACTIVE"
+    SET_EDIT_ACTIVE: "SET_EDIT_ACTIVE"
 }
 
 // WITH THIS WE'RE MAKING OUR GLOBAL DATA STORE
@@ -34,8 +32,7 @@ function GlobalStoreContextProvider(props) {
         lists: [],
         currentList: null,
         newListCounter: 0,
-        listNameActive: false,
-        itemActive: false,
+        editActive: false,
         listMarkedForDeletion: null
     });
     const history = useHistory();
@@ -48,36 +45,23 @@ function GlobalStoreContextProvider(props) {
     const storeReducer = (action) => {
         const { type, payload } = action;
         switch (type) {
-            // LIST UPDATE OF ITS NAME
-            case GlobalStoreActionType.CHANGE_LIST_NAME: {
-                return setStore({
-                    lists: payload.lists,
-                    currentList: null,
-                    newListCounter: store.newListCounter,
-                    isListNameEditActive: false,
-                    isItemEditActive: false,
-                    listMarkedForDeletion: null
-                });
-            }
             // STOP EDITING THE CURRENT LIST
             case GlobalStoreActionType.CLOSE_CURRENT_LIST: {
                 return setStore({
                     lists: store.lists,
                     currentList: null,
                     newListCounter: store.newListCounter,
-                    isListNameEditActive: false,
-                    isItemEditActive: false,
+                    editActive: false,
                     listMarkedForDeletion: null
                 })
             }
-            // CREATE A NEW LIST
+            // CREATE A NEW LIST AND LOAD IT IN
             case GlobalStoreActionType.CREATE_NEW_LIST: {
                 return setStore({
                     lists: store.lists,
                     currentList: payload,
                     newListCounter: store.newListCounter + 1,
-                    isListNameEditActive: false,
-                    isItemEditActive: false,
+                    editActive: true,
                     listMarkedForDeletion: null
                 })
             }
@@ -87,8 +71,7 @@ function GlobalStoreContextProvider(props) {
                     lists: payload,
                     currentList: null,
                     newListCounter: store.newListCounter,
-                    isListNameEditActive: false,
-                    isItemEditActive: false,
+                    editActive: false,
                     listMarkedForDeletion: null
                 });
             }
@@ -98,52 +81,27 @@ function GlobalStoreContextProvider(props) {
                     lists: store.lists,
                     currentList: null,
                     newListCounter: store.newListCounter,
-                    isListNameEditActive: false,
-                    isItemEditActive: false,
+                    editActive: false,
                     listMarkedForDeletion: payload
                 });
             }
-            // PREPARE TO DELETE A LIST
+            // STOP PREPARING TO DELETE A LIST
             case GlobalStoreActionType.UNMARK_LIST_FOR_DELETION: {
                 return setStore({
                     lists: store.lists,
                     currentList: null,
                     newListCounter: store.newListCounter,
-                    isListNameEditActive: false,
-                    isItemEditActive: false,
+                    editActive: false,
                     listMarkedForDeletion: null
                 });
             }
-            // UPDATE A LIST
+            // LOAD A LIST FOR EDITING
             case GlobalStoreActionType.SET_CURRENT_LIST: {
                 return setStore({
                     lists: store.lists,
                     currentList: payload,
                     newListCounter: store.newListCounter,
-                    isListNameEditActive: false,
-                    isItemEditActive: false,
-                    listMarkedForDeletion: null
-                });
-            }
-            // START EDITING A LIST ITEM
-            case GlobalStoreActionType.SET_ITEM_EDIT_ACTIVE: {
-                return setStore({
-                    lists: store.lists,
-                    currentList: store.currentList,
-                    newListCounter: store.newListCounter,
-                    isListNameEditActive: false,
-                    isItemEditActive: true,
-                    listMarkedForDeletion: null
-                });
-            }
-            // START EDITING A LIST NAME
-            case GlobalStoreActionType.SET_LIST_NAME_EDIT_ACTIVE: {
-                return setStore({
-                    lists: store.lists,
-                    currentList: payload,
-                    newListCounter: store.newListCounter,
-                    isListNameEditActive: true,
-                    isItemEditActive: false,
+                    editActive: true,
                     listMarkedForDeletion: null
                 });
             }
@@ -210,7 +168,7 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    // THE FOLLOWING 5 FUNCTIONS ARE FOR COORDINATING THE DELETION
+    // THE FOLLOWING 4 FUNCTIONS ARE FOR COORDINATING THE DELETION
     // OF A LIST, WHICH INCLUDES USING A VERIFICATION MODAL. THE
     // FUNCTIONS ARE markListForDeletion, deleteList, deleteMarkedList,
     // showDeleteListModal, and hideDeleteListModal
@@ -245,8 +203,7 @@ function GlobalStoreContextProvider(props) {
         });
     }
 
-    // THE FOLLOWING 8 FUNCTIONS ARE FOR COORDINATING THE UPDATING OF A LIST
-    // FUNCTIONS ARE moveItem, updateItem, updateCurrentList, undo, and redo
+    // THE FOLLOWING 4 FUNCTIONS ARE FOR COORDINATING THE LOADING AND UPDATING OF A LIST
     store.setCurrentList = async function (id) {
         let response = await api.getTop5ListById(id);
         if (response.data.success && response.data.top5List.ownerUsername === auth.user.username) {
@@ -278,22 +235,6 @@ function GlobalStoreContextProvider(props) {
         if (response.data.success) {
             store.loadLists();
         }
-    }
-
-    // THIS FUNCTION ENABLES THE PROCESS OF EDITING A LIST NAME
-    store.setIsListNameEditActive = function () {
-        storeReducer({
-            type: GlobalStoreActionType.SET_LIST_NAME_EDIT_ACTIVE,
-            payload: null
-        });
-    }
-
-    // THIS FUNCTION ENABLES THE PROCESS OF EDITING AN ITEM
-    store.setIsItemEditActive = function () {
-        storeReducer({
-            type: GlobalStoreActionType.SET_ITEM_EDIT_ACTIVE,
-            payload: null
-        });
     }
 
     return (
