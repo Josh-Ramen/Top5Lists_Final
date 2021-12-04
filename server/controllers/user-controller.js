@@ -56,6 +56,7 @@ loginUser = async (req, res) => {
 }
 
 getLoggedIn = async (req, res) => {
+    console.log("checking logged in");
     auth.verify(req, res, async function () {
         const loggedInUser = await User.findOne({ _id: req.userId });
         return res.status(200).json({
@@ -63,7 +64,7 @@ getLoggedIn = async (req, res) => {
             user: {
                 firstName: loggedInUser.firstName,
                 lastName: loggedInUser.lastName,
-                email: loggedInUser.email,
+                username: loggedInUser.username,
             }
         }).send();
     })
@@ -131,8 +132,7 @@ registerUser = async (req, res) => {
             user: {
                 firstName: savedUser.firstName,
                 lastName: savedUser.lastName,
-                username: savedUser.username,
-                email: savedUser.email
+                username: savedUser.username
             }
         }).send();
     } catch (err) {

@@ -12,7 +12,9 @@ function WorkspaceScreen() {
     const [canPublish, setCanPublish] = useState(false);
 
     useEffect(() => {
-        checkCanPublish();
+        if (store.currentList) {
+            checkCanPublish();
+        }
       });
 
     async function saveList() {
@@ -49,10 +51,10 @@ function WorkspaceScreen() {
         // CONDITION 2: No duplicate list entries.
         let cond2 = noDuplicates(store.currentList.items);
 
-        // CONDITION 3: No lists of the same name. (Assumption: store.lists only contains current user's lists right now)
+        // CONDITION 3: No published lists of the same name. (Assumption: store.lists only contains current user's lists right now)
         let cond3 = true;
         store.lists.forEach(list => {
-            if (list.name.toLowerCase() === store.currentList.name && list._id !== store.currentList._id) {
+            if (list.published && list.name.toLowerCase() === store.currentList.name && list._id !== store.currentList._id) {
                 cond3 = false;
             }
         });
@@ -62,6 +64,7 @@ function WorkspaceScreen() {
 
     return (
         <div id="top5-workspace">
+            {store.currentList &&
             <Grid container direction="column" wrap="nowrap" justifyContent="space-evenly" sx={{ p: 2 }}>
                 <Grid item>
                     <Box sx={{ bgcolor: '#ffffff', borderColor: 'text.primary', m: 1, p: 1, border: 1, borderRadius: '8px', width: "50%" }}>
@@ -147,6 +150,7 @@ function WorkspaceScreen() {
                     </Grid>
                 </Grid>
             </Grid>
+            }
         </div>
     )
 }
