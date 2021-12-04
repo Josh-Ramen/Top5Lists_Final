@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { GlobalStoreContext } from '../store'
-import ListCard from './ListCard.js'
+import ListCard from './ListCard';
 import { Fab, Typography, Modal, Box, Button } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add';
 import List from '@mui/material/List';
@@ -53,14 +53,16 @@ const HomeScreen = () => {
     let listCard = "";
     if (store) {
         listCard =
-            <List sx={{ width: '90%', left: '5%', bgcolor: 'background.paper' }}>
+            <List sx={{ width: '90%', left: '5%' }}>
                 {
                     store.lists.map((list) => (
-                        <ListCard
-                            key={list._id}
-                            list={list}
-                            selected={false}
-                        />
+                        <Box sx={{ bgcolor: '#fffff1', borderColor: 'text.primary', m: 1, border: 1, borderRadius: '16px' }}>
+                            <ListCard
+                                key={list._id}
+                                list={list}
+                                selected={false}
+                            />
+                        </Box>
                     ))
                 }
             </List>;

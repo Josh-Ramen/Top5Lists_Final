@@ -2,7 +2,8 @@ import AppBanner from './AppBanner'
 import EditToolbar from './EditToolbar'
 import HomeScreen from './HomeScreen'
 import HomeWrapper from './HomeWrapper'
-import ListCard from './ListCard'
+import ListCardUnpublished from './ListCardUnpublished' 
+import ListCardPublished from './ListCardPublished'
 import LoginScreen from './LoginScreen'
 import RegisterScreen from './RegisterScreen'
 import SplashScreen from './SplashScreen'
@@ -20,7 +21,8 @@ export {
     EditToolbar, 
     HomeScreen,
     HomeWrapper,
-    ListCard, 
+    ListCardUnpublished,
+    ListCardPublished, 
     LoginScreen,
     RegisterScreen,
     SplashScreen,
