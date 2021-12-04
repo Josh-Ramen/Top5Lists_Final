@@ -21,12 +21,6 @@ function ListCardPublished(props) {
     const { list } = props;
     const [expanded, setExpanded] = useState(false);
 
-    function handleLoadList(event, id) {
-        event.stopPropagation();
-        console.log("loading list");
-        store.setCurrentList(id);
-    }
-
     async function handleDeleteList(event, id) {
         event.stopPropagation();
         store.markListForDeletion(id);
@@ -61,45 +55,7 @@ function ListCardPublished(props) {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item>
-                    <Grid container direction="row" justifyContent="flex-start" alignItems="center">
-                        <Grid item xs={11}>
-                            <div id="list-edit" onClick={(event) => { handleLoadList(event, list._id) }}><strong>Edit</strong></div>
-                        </Grid>
-                        <Grid item xs={1}>
-                            <IconButton onClick={(event) => { handleExpandList(event, list._id) }} aria-label='expand'>
-                                <ExpandMoreIcon style={{ fontSize: '28pt' }} />
-                            </IconButton>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Grid>
-        </ListItem>;
-    if (expanded) {
-        listCard =
-            <ListItem
-                id={list._id}
-                key={list._id}
-                sx={{ marginTop: '15px', display: 'flex' }}
-                style={{
-                    width: '100%'
-                }} >
-                <Grid container spacing={0} direction="column" justifyContent="flex-start">
-                    <Grid item>
-                        <Grid container direction="row" justifyContent="flex-start" alignItems="flex-start">
-                            <Grid item xs={11}>
-                                <Grid container direction="column">
-                                    <Grid item><div id="list-name"><strong>{list.name}</strong></div></Grid>
-                                    <Grid item><div id="list-owner"><strong>By: {list.ownerUsername}</strong></div></Grid>
-                                </Grid>
-                            </Grid>
-                            <Grid item xs={1}>
-                                <IconButton onClick={(event) => { handleDeleteList(event, list._id) }} aria-label='delete'>
-                                    <DeleteIcon style={{ fontSize: '28pt' }} />
-                                </IconButton>
-                            </Grid>
-                        </Grid>
-                    </Grid>
+                {expanded &&
                     <Grid item>
                         <Grid container direction="row" justifyContent="flex-start" alignItems="center">
                             <Grid item>
@@ -115,21 +71,31 @@ function ListCardPublished(props) {
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item>
-                        <Grid container direction="row" justifyContent="flex-start" alignItems="center">
-                            <Grid item xs={11}>
-                                <div id="list-edit" onClick={(event) => { handleLoadList(event, list._id) }}><strong>Edit</strong></div>
-                            </Grid>
-                            <Grid item xs={1}>
+                }
+                <Grid item>
+                    <Grid container direction="row" justifyContent="flex-start" alignItems="center">
+                        <Grid item xs={7}>
+                            <div id="list-published"><strong>Published: {list.publishDate}</strong></div>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <div id="list-views"><strong>Views: {list.views}</strong></div>
+                        </Grid>
+                        <Grid item xs={1}>
+                            {!expanded &&
+                                <IconButton onClick={(event) => { handleExpandList(event, list._id) }} aria-label='expand'>
+                                    <ExpandMoreIcon style={{ fontSize: '28pt' }} />
+                                </IconButton>
+                            }
+                            {expanded &&
                                 <IconButton onClick={(event) => { handleExpandList(event, list._id) }} aria-label='expand'>
                                     <ExpandLessIcon style={{ fontSize: '28pt' }} />
                                 </IconButton>
-                            </Grid>
+                            }
                         </Grid>
                     </Grid>
                 </Grid>
-            </ListItem>;
-    }
+            </Grid>
+        </ListItem>;
 
     return (listCard);
 }
