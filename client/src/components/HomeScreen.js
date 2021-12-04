@@ -2,9 +2,8 @@ import React, { useContext, useEffect } from 'react'
 import { GlobalStoreContext } from '../store'
 import ListCard from './ListCard';
 import ListBanner from './ListBanner'
-import { Fab, Typography, Modal, Box, Button } from '@mui/material'
-import AddIcon from '@mui/icons-material/Add';
-import List from '@mui/material/List';
+import { List, Box, Modal, Typography, Button } from '@mui/material'
+
 /*
     This React component lists all the top5 lists in the UI.
     
@@ -38,7 +37,6 @@ const HomeScreen = () => {
         store.deleteMarkedList();
         handleClose();
     }
-
     if (!open && store.listMarkedForDeletion) {
         setListName(store.listMarkedForDeletion.name);
         handleOpen();
@@ -48,9 +46,6 @@ const HomeScreen = () => {
         store.loadLists();
     }, []);
 
-    function handleCreateNewList() {
-        store.createNewList();
-    }
     let listCard = "";
     if (store) {
         listCard =
@@ -70,6 +65,19 @@ const HomeScreen = () => {
     }
     return (
         <div id="top5-list-selector">
+            <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+                <Box sx={style}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                        Really delete the {listName} Top 5 List?
+                    </Typography>
+                    <Button onClick={handleDelete}>
+                        Yes
+                    </Button>
+                    <Button onClick={handleClose}>
+                        No
+                    </Button>
+                </Box>
+            </Modal>
             <ListBanner />
             <div id="list-selector-list">
                 {listCard}

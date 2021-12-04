@@ -156,34 +156,6 @@ function GlobalStoreContextProvider(props) {
     // DRIVE THE STATE OF THE APPLICATION. WE'LL CALL THESE IN 
     // RESPONSE TO EVENTS INSIDE OUR COMPONENTS.
 
-    // THIS FUNCTION PROCESSES CHANGING A LIST NAME
-    store.changeListName = async function (id, newName) {
-        let response = await api.getTop5ListById(id);
-        if (response.data.success && response.data.top5List.ownerUsername === auth.user.username) {
-            let top5List = response.data.top5List;
-            top5List.name = newName;
-            async function updateList(top5List) {
-                response = await api.updateTop5ListById(top5List._id, top5List);
-                if (response.data.success) {
-                    async function getLists(top5List) {
-                        response = await api.getTop5Lists();
-                        if (response.data.success) {
-                            storeReducer({
-                                type: GlobalStoreActionType.CHANGE_LIST_NAME,
-                                payload: {
-                                    lists: response.data.data,
-                                    top5List: top5List
-                                }
-                            });
-                        }
-                    }
-                    getLists(top5List);
-                }
-            }
-            updateList(top5List);
-        }
-    }
-
     // THIS FUNCTION PROCESSES CLOSING THE CURRENTLY LOADED LIST
     store.closeCurrentList = function () {
         storeReducer({
@@ -291,40 +263,20 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    store.moveItem = function (start, end) {
-        start -= 1;
-        end -= 1;
-        if (start < end) {
-            let temp = store.currentList.items[start];
-            for (let i = start; i < end; i++) {
-                store.currentList.items[i] = store.currentList.items[i + 1];
-            }
-            store.currentList.items[end] = temp;
-        }
-        else if (start > end) {
-            let temp = store.currentList.items[start];
-            for (let i = start; i > end; i--) {
-                store.currentList.items[i] = store.currentList.items[i - 1];
-            }
-            store.currentList.items[end] = temp;
-        }
-
-        // NOW MAKE IT OFFICIAL
-        store.updateCurrentList();
-    }
-
     store.updateItem = function (index, newItem) {
         store.currentList.items[index] = newItem;
-        store.updateCurrentList();
     }
 
-    store.updateCurrentList = async function () {
-        const response = await api.updateTop5ListById(store.currentList._id, store.currentList);
+    store.updateName = function (newName) {
+        store.currentList.name = newName;
+    }
+
+    store.saveCurrentList = async function () {
+        const list = store.currentList;
+        store.closeCurrentList();
+        const response = await api.updateTop5ListById(list._id, list);
         if (response.data.success) {
-            storeReducer({
-                type: GlobalStoreActionType.SET_CURRENT_LIST,
-                payload: store.currentList
-            });
+            store.loadLists();
         }
     }
 
