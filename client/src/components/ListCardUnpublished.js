@@ -41,7 +41,7 @@ function ListCardUnpublished(props) {
             style={{
                 width: '100%'
             }} >
-            <Grid container spacing={0} direction="column">
+            <Grid container spacing={0} direction="column" wrap="nowrap">
                 <Grid item>
                     <Grid container direction="row" justifyContent="flex-start" alignItems="flex-start">
                         <Grid item xs={11}>
@@ -59,8 +59,8 @@ function ListCardUnpublished(props) {
                 </Grid>
                 {expanded &&
                     <Grid item>
-                    <Grid container direction="row" justifyContent="flex-start" alignItems="center">
-                        <Grid item>
+                    <Grid container direction="row" justifyContent="flex-start" alignItems="center" wrap="nowrap">
+                        <Grid item xs={6}>
                             <Box sx={{ bgcolor: '#2c2f70', borderColor: 'text.primary', border: 1, p: 2, borderRadius: '16px' }}>
                                 <Grid container direction="column" spacing={2}>
                                     <Grid item><div id="expand-list-item"><strong>1: {list.items[0]}</strong></div></Grid>
