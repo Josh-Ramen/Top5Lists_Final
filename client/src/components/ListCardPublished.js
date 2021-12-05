@@ -1,5 +1,6 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { GlobalStoreContext } from '../store'
+import AuthContext from '../auth'
 import { Box, ListItem, IconButton, Grid } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
@@ -18,9 +19,20 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 */
 function ListCardPublished(props) {
     const { store } = useContext(GlobalStoreContext);
+    const { auth } = useContext(AuthContext);
     const { list, index } = props;
     const [expanded, setExpanded] = useState(false);
+    const [rating, setRating] = useState(0);
     const date = new Date(list.publishDate).toDateString();
+
+    useEffect(() => { 
+        // Rating decider:
+        if (list.ratings[auth.user.username]) {
+            setRating(list.ratings[auth.user.username]);
+        } else {
+            setRating(0);
+        }
+    }, []);
 
     async function handleDeleteList(event, id) {
         event.stopPropagation();
@@ -36,6 +48,44 @@ function ListCardPublished(props) {
         }
     }
 
+    function handleLikeList(event, id) {
+        event.stopPropagation();
+        let adding = true;
+        let switching = false;
+        if (rating !== 1) {
+            if (rating === -1) {
+                list.dislikes -= 1;
+                switching = true;
+            }
+            setRating(1);
+            list.likes += 1;
+        } else {
+            setRating(0);
+            list.likes -= 1;
+            adding = false;
+        }
+        store.likeList(id, adding, switching);
+    }
+
+    function handleDislikeList(event, id) {
+        event.stopPropagation();
+        let adding = true;
+        let switching = false;
+        if (rating !== -1) {
+            if (rating === 1) {
+                list.likes -= 1;
+                switching = true;
+            }
+            setRating(-1);
+            list.dislikes += 1;
+        } else {
+            setRating(0);
+            list.dislikes -= 1;
+            adding = false;
+        }
+        store.dislikeList(id, adding, switching);
+    }
+
     let listCard =
         <ListItem
             id={list._id}
@@ -47,10 +97,32 @@ function ListCardPublished(props) {
             <Grid container spacing={0} direction="column" wrap="nowrap">
                 <Grid item>
                     <Grid container direction="row" justifyContent="flex-start" alignItems="flex-start">
-                        <Grid item xs={11}>
+                        <Grid item xs={7}>
                             <Grid container direction="column">
                                 <Grid item><div id="list-name"><strong>{list.name}</strong></div></Grid>
                                 <Grid item><div id="list-owner"><strong>By: {list.ownerUsername}</strong></div></Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid item xs={2}>
+                            <Grid container direction="row" alignItems="center">
+                                <Grid item>
+                                    <IconButton onClick={(event) => { handleLikeList(event, list._id) }} aria-label='delete'>
+                                        {rating !== 1 && <ThumbUpOutlinedIcon style={{ fontSize: '28pt' }} />}
+                                        {rating === 1 && <ThumbUpIcon style={{ fontSize: '28pt' }} />}
+                                    </IconButton>
+                                </Grid>
+                                <Grid item><div id="list-likes"><strong>{list.likes}</strong></div></Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid item xs={2}>
+                            <Grid container direction="row" alignItems="center">
+                                <Grid item>
+                                    <IconButton onClick={(event) => { handleDislikeList(event, list._id) }} aria-label='delete'>
+                                        {rating !== -1 && <ThumbDownOutlinedIcon style={{ fontSize: '28pt' }} />}
+                                        {rating === -1 && <ThumbDownIcon style={{ fontSize: '28pt' }} />}
+                                    </IconButton>
+                                </Grid>
+                                <Grid item><div id="list-likes"><strong>{list.dislikes}</strong></div></Grid>
                             </Grid>
                         </Grid>
                         {store.mode === "home" &&

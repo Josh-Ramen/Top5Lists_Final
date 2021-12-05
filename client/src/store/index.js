@@ -166,6 +166,8 @@ function GlobalStoreContextProvider(props) {
             publishDate: null,
             views: 0,
             ratings: new Map(),
+            likes: 0,
+            dislikes: 0,
             comments: []
         };
         const response = await api.createTop5List(payload);
@@ -309,6 +311,45 @@ function GlobalStoreContextProvider(props) {
             type: GlobalStoreActionType.SET_VIEW_MODE,
             payload: mode
         });
+    }
+
+    // FUNCTIONS TO DEAL WITH LIKING AND DISLIKING LISTS
+    store.likeList = async function (id, adding, switching) {
+        let response = await api.getTop5ListById(id);
+        if (response.data.success) {
+            let top5List = response.data.top5List;
+            if (adding) {
+                top5List.likes += 1;
+                top5List.ratings[auth.user.username] = 1;
+            } else {
+                top5List.likes -= 1;
+                top5List.ratings[auth.user.username] = 0;
+            }
+            if (switching) {
+                top5List.dislikes -= 1;
+            }
+
+            response = await api.updateTop5ListById(top5List._id, top5List);
+        }
+    }
+
+    store.dislikeList = async function (id, adding, switching) {
+        let response = await api.getTop5ListById(id);
+        if (response.data.success) {
+            let top5List = response.data.top5List;
+            if (adding) {
+                top5List.dislikes += 1;
+                top5List.ratings[auth.user.username] = -1;
+            } else {
+                top5List.dislikes -= 1;
+                top5List.ratings[auth.user.username] = 0;
+            }
+            if (switching) {
+                top5List.likes -= 1;
+            }
+
+            response = await api.updateTop5ListById(top5List._id, top5List);
+        }
     }
 
     return (

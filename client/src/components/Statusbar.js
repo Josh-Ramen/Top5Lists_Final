@@ -22,8 +22,8 @@ function Statusbar() {
             {store.mode === "home" && auth.loggedIn &&
             <Grid container justifyContent="center" alignItems="center">
                 <Grid item>
-                    <IconButton disabled={store.editActive}>
-                        <AddIcon onClick={handleCreateNewList} style={{ color: "black", opacity: store.editActive ? 0.25 : 1, fontSize: "36pt" }}/>
+                    <IconButton onClick={handleCreateNewList} disabled={store.editActive}>
+                        <AddIcon style={{ color: "black", opacity: store.editActive ? 0.25 : 1, fontSize: "36pt" }}/>
                     </IconButton>
                 </Grid>
                 <Grid item><Typography variant="h4">Your Lists</Typography></Grid>
