@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { GlobalStoreContext } from '../store'
+import AuthContext from '../auth';
 import { Typography, IconButton, Grid } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add';
 
@@ -10,6 +11,7 @@ import AddIcon from '@mui/icons-material/Add';
 */
 function Statusbar() {
     const { store } = useContext(GlobalStoreContext);
+    const { auth } = useContext(AuthContext);
 
     function handleCreateNewList() {
         store.createNewList();
@@ -17,7 +19,7 @@ function Statusbar() {
 
     return (
         <div id="top5-statusbar">
-            {store.mode === "home" &&
+            {store.mode === "home" && auth.loggedIn &&
             <Grid container justifyContent="center" alignItems="center">
                 <Grid item>
                     <IconButton disabled={store.editActive}>

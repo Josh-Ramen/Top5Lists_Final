@@ -22,7 +22,8 @@ export const GlobalStoreActionType = {
     UNMARK_LIST_FOR_DELETION: "UNMARK_LIST_FOR_DELETION",
     SET_CURRENT_LIST: "SET_CURRENT_LIST",
     SET_EDIT_ACTIVE: "SET_EDIT_ACTIVE",
-    RESET_STORE: "RESET_STORE"
+    RESET_STORE: "RESET_STORE",
+    SET_VIEW_MODE: "SET_VIEW_MODE"
 }
 
 // WITH THIS WE'RE MAKING OUR GLOBAL DATA STORE
@@ -35,7 +36,7 @@ function GlobalStoreContextProvider(props) {
         newListCounter: 0,
         editActive: false,
         listMarkedForDeletion: null,
-        mode: null
+        mode: "home"
     });
     const history = useHistory();
 
@@ -77,7 +78,7 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter,
                     editActive: false,
                     listMarkedForDeletion: null,
-                    mode: payload.mode
+                    mode: store.mode
                 });
             }
             // PREPARE TO DELETE A LIST
@@ -121,8 +122,19 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: 0,
                     editActive: false,
                     listMarkedForDeletion: null,
-                    mode: null
-                })
+                    mode: "home"
+                });
+            }
+            // SET VIEW MODE
+            case GlobalStoreActionType.SET_VIEW_MODE: {
+                return setStore({
+                    lists: [],
+                    currentList: null,
+                    newListCounter: store.newListCounter,
+                    editActive: false,
+                    listMarkedForDeletion: null,
+                    mode: payload
+                });
             }
             default:
                 return store;
@@ -180,8 +192,7 @@ function GlobalStoreContextProvider(props) {
             storeReducer({
                 type: GlobalStoreActionType.LOAD_LISTS,
                 payload: {
-                    lists: response.data.data,
-                    mode: "home"
+                    lists: response.data.data
                 }
             });
         }
@@ -264,6 +275,14 @@ function GlobalStoreContextProvider(props) {
         storeReducer({
             type: GlobalStoreActionType.RESET_STORE,
             payload: null
+        });
+    }
+
+    // FUNCTION TO SET VIEW MODE
+    store.setViewMode = function (mode) {
+        storeReducer({
+            type: GlobalStoreActionType.SET_VIEW_MODE,
+            payload: mode
         });
     }
 
