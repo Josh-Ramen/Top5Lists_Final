@@ -52,8 +52,15 @@ updateTop5List = async (req, res) => {
             })
         }
 
-        top5List.name = body.name
-        top5List.items = body.items
+        top5List.name = body.name;
+        top5List.items = body.items;
+        top5List.published = body.published;
+        if (!top5List.publishDate) {
+            top5List.publishDate = new Date();
+        }
+        top5List.views = body.views;
+        top5List.ratings = body.ratings;
+        top5List.comments = body.comments;
         top5List
             .save()
             .then(() => {

@@ -270,6 +270,22 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    store.publishCurrentList = async function () {
+        const list = store.currentList;
+        list.published = true;
+        store.closeCurrentList();
+        const response = await api.updateTop5ListById(list._id, list);
+        if (response.data.success) {
+            store.loadLists();
+        }
+    }
+
+    store.viewList = async function (index) {
+        let list = store.lists[index];
+        list.views += 1;
+        await api.updateTop5ListById(list._id, list);
+    }
+
     // FUNCTION TO RESET STORE ON LOGOUT
     store.resetStore = function () {
         storeReducer({

@@ -18,17 +18,22 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 */
 function ListCardPublished(props) {
     const { store } = useContext(GlobalStoreContext);
-    const { list } = props;
+    const { list, index } = props;
     const [expanded, setExpanded] = useState(false);
+    const date = new Date(list.publishDate).toDateString();
 
     async function handleDeleteList(event, id) {
         event.stopPropagation();
         store.markListForDeletion(id);
     }
 
-    function handleExpandList(event, id) {
+    function handleExpandList(event) {
         event.stopPropagation();
         setExpanded(!expanded);
+
+        if (!expanded) {
+            store.viewList(index);
+        }
     }
 
     let listCard =
@@ -58,7 +63,7 @@ function ListCardPublished(props) {
                 {expanded &&
                     <Grid item>
                         <Grid container direction="row" justifyContent="flex-start" alignItems="center" wrap="nowrap">
-                            <Grid item>
+                            <Grid item xs={6}>
                                 <Box sx={{ bgcolor: '#2c2f70', borderColor: 'text.primary', border: 1, p: 2, borderRadius: '16px' }}>
                                     <Grid container direction="column" spacing={2}>
                                         <Grid item><div id="expand-list-item"><strong>1: {list.items[0]}</strong></div></Grid>
@@ -75,19 +80,19 @@ function ListCardPublished(props) {
                 <Grid item>
                     <Grid container direction="row" justifyContent="flex-start" alignItems="center">
                         <Grid item xs={7}>
-                            <div id="list-published"><strong>Published: {list.publishDate}</strong></div>
+                            <div id="list-published"><strong>Published: {date}</strong></div>
                         </Grid>
                         <Grid item xs={4}>
                             <div id="list-views"><strong>Views: {list.views}</strong></div>
                         </Grid>
                         <Grid item xs={1}>
                             {!expanded &&
-                                <IconButton onClick={(event) => { handleExpandList(event, list._id) }} aria-label='expand'>
+                                <IconButton onClick={(event) => { handleExpandList(event) }} aria-label='expand'>
                                     <ExpandMoreIcon style={{ fontSize: '28pt' }} />
                                 </IconButton>
                             }
                             {expanded &&
-                                <IconButton onClick={(event) => { handleExpandList(event, list._id) }} aria-label='expand'>
+                                <IconButton onClick={(event) => { handleExpandList(event) }} aria-label='expand'>
                                     <ExpandLessIcon style={{ fontSize: '28pt' }} />
                                 </IconButton>
                             }

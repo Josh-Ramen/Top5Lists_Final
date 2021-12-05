@@ -21,6 +21,10 @@ function WorkspaceScreen() {
         store.saveCurrentList();
     }
 
+    async function publishList() {
+        store.publishCurrentList();
+    }
+
     function handleChange(event, id) {
         if (id === 0) {
             store.updateName(event.target.value);
@@ -144,7 +148,7 @@ function WorkspaceScreen() {
                         </Grid>
                         <Grid item>
                             <Box sx={{ bgcolor: '#dddddd', borderColor: 'text.primary', m: 1, p: 1, border: 1, borderRadius: '4px' }}>
-                                <Button disabled={!canPublish} sx={{ color: 'black' }}><strong>Publish</strong></Button>
+                                <Button disabled={!canPublish} sx={{ color: 'black' }} onClick={publishList}><strong>Publish</strong></Button>
                             </Box>
                         </Grid>
                     </Grid>
