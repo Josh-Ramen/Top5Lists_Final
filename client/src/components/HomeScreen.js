@@ -46,13 +46,21 @@ const HomeScreen = () => {
         store.loadLists();
     }, []);
 
+    useEffect(() => {
+        if (store.mode !== "community") {
+            store.loadLists();
+        } else {
+            // TODO load community lists
+        }
+    }, [store.mode])
+
     let listCard = "";
     if (store) {
         listCard =
             <List sx={{ width: '90%', left: '5%' }}>
                 {
                     store.lists.map((list, index) => (
-                        <Box sx={{ bgcolor: '#fffff1', borderColor: 'text.primary', m: 1, border: 1, borderRadius: '16px' }}>
+                        <Box sx={{ bgcolor: list.published ? '#d4d4f5' : '#fffff1', borderColor: 'text.primary', m: 1, border: 1, borderRadius: '16px' }}>
                             <ListCard
                                 key={list._id}
                                 index={index}

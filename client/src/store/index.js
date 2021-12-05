@@ -189,10 +189,19 @@ function GlobalStoreContextProvider(props) {
     store.loadLists = async function () {
         const response = await api.getTop5Lists();
         if (response.data.success) {
+            // CONDITIONAL FILTERING BASED ON CURRENT MODE
+            let lists = response.data.data;
+
+            if (store.mode === "home") {
+                lists = lists.filter((list) => list.ownerUsername === auth.user.username);
+            } else if (store.mode === "all" || store.mode === "user") {
+                lists = lists.filter((list) => list.published);
+            }
+
             storeReducer({
                 type: GlobalStoreActionType.LOAD_LISTS,
                 payload: {
-                    lists: response.data.data
+                    lists: lists
                 }
             });
         }

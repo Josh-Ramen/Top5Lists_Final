@@ -53,11 +53,13 @@ function ListCardPublished(props) {
                                 <Grid item><div id="list-owner"><strong>By: {list.ownerUsername}</strong></div></Grid>
                             </Grid>
                         </Grid>
+                        {store.mode === "home" &&
                         <Grid item xs={1}>
                             <IconButton onClick={(event) => { handleDeleteList(event, list._id) }} aria-label='delete'>
                                 <DeleteIcon style={{ fontSize: '28pt' }} />
                             </IconButton>
                         </Grid>
+                        }
                     </Grid>
                 </Grid>
                 {expanded &&

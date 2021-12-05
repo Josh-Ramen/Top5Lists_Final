@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { GlobalStoreContext } from '../store';
+import GlobalStoreContext from '../store';
 import AuthContext from '../auth';
 import { Button, Grid, TextField, Menu, MenuItem, Typography, IconButton } from '@mui/material';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
@@ -29,6 +29,13 @@ function ListBanner(props) {
         setAnchorEl(null);
     };
 
+    function setViewMode(mode) {
+        if (store.mode !== mode) {
+            console.log("setting mode to " + mode);
+            store.setViewMode(mode);
+        }
+    }
+
     let menu =
         <Menu
             anchorEl={anchorEl}
@@ -57,22 +64,22 @@ function ListBanner(props) {
             {auth.loggedIn &&
                 <Grid container justifyContent="flex-start" sx={{ p: 1 }}>
                     <Grid item xs={1}>
-                        <Button>
+                        <Button onClick={() => setViewMode("home")} >
                             <HomeOutlinedIcon style={{ fontSize: '32pt', color: "black" }} />
                         </Button>
                     </Grid>
                     <Grid item xs={1}>
-                        <Button>
+                        <Button onClick={() => setViewMode("all")} >
                             <GroupsOutlinedIcon style={{ fontSize: '32pt', color: "black" }} />
                         </Button>
                     </Grid>
                     <Grid item xs={1}>
-                        <Button>
+                        <Button onClick={() => setViewMode("user")} >
                             <PersonOutlinedIcon style={{ fontSize: '32pt', color: "black" }} />
                         </Button>
                     </Grid>
                     <Grid item xs={1}>
-                        <Button>
+                        <Button onClick={() => setViewMode("community")}>
                             <FunctionsIcon style={{ fontSize: '32pt', color: "black" }} />
                         </Button>
                     </Grid>
