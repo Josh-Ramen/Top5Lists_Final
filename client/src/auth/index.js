@@ -29,7 +29,8 @@ export const AuthActionType = {
 function AuthContextProvider(props) {
     const [auth, setAuth] = useState({
         user: null,
-        loggedIn: false
+        loggedIn: false,
+        guest: false
     });
     const history = useHistory();
 
@@ -49,25 +50,36 @@ function AuthContextProvider(props) {
             case AuthActionType.LOG_IN: {
                 return setAuth({
                     user: payload.user,
-                    loggedIn: true
+                    loggedIn: true,
+                    guest: false
                 })
             }
             case AuthActionType.GET_LOGGED_IN: {
                 return setAuth({
                     user: payload.user,
-                    loggedIn: payload.loggedIn
+                    loggedIn: payload.loggedIn,
+                    guest: false
                 });
             }
             case AuthActionType.REGISTER_USER: {
                 return setAuth({
                     user: payload.user,
-                    loggedIn: true
+                    loggedIn: true,
+                    guest: false
                 })
             }
             case AuthActionType.LOG_OUT: {
                 return setAuth({
                     user: null,
-                    loggedIn: false
+                    loggedIn: false,
+                    guest: false
+                })
+            }
+            case AuthActionType.GUEST_LOG_IN: {
+                return setAuth({
+                    user: payload.user,
+                    loggedIn: true,
+                    guest: true
                 })
             }
             default:
@@ -82,7 +94,6 @@ function AuthContextProvider(props) {
                 authReducer({
                     type: AuthActionType.LOG_IN,
                     payload: {
-                        loggedIn: response.data.loggedIn,
                         user: response.data.user
                     }
                 })
@@ -141,6 +152,22 @@ function AuthContextProvider(props) {
             setError(err.response.data.errorMessage);
             handleOpen();
         }
+    }
+
+    auth.guestLogin = function (store) {
+        const dummyUser = {
+            firstName: "Guest",
+            lastName: " ",
+            username: " "
+        }
+        authReducer({
+            type: AuthActionType.GUEST_LOG_IN,
+            payload: {
+                user: dummyUser
+            }
+        });
+        history.push("/");
+        store.setViewMode("all");
     }
 
     return (

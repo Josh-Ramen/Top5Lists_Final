@@ -71,7 +71,7 @@ export default function AppBanner() {
     }
     
     function getAccountMenu(loggedIn) {
-        if (loggedIn) {
+        if (loggedIn && !auth.guest) {
             let initials = auth.user.firstName[0] + auth.user.lastName[0];
             return <Typography                        
                 variant="h4"

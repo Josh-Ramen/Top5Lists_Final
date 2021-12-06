@@ -87,8 +87,8 @@ function ListBanner(props) {
             {auth.loggedIn &&
                 <Grid container justifyContent="flex-start" sx={{ p: 1 }}>
                     <Grid item xs={1}>
-                        <Button onClick={() => setViewMode("home")} >
-                            <HomeOutlinedIcon style={{ fontSize: '32pt', color: "black" }} />
+                        <Button disabled={auth.guest} onClick={() => setViewMode("home")} >
+                            <HomeOutlinedIcon style={{ fontSize: '32pt', color: "black", opacity: auth.guest ? 0.25 : 1 }} />
                         </Button>
                     </Grid>
                     <Grid item xs={1}>

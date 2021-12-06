@@ -73,7 +73,7 @@ getLoggedIn = async (req, res) => {
 registerUser = async (req, res) => {
     try {
         const { firstName, lastName, username, email, password, passwordVerify } = req.body;
-        if (!firstName || !lastName || !username || !email || !password || !passwordVerify) {
+        if (!firstName || !lastName || !username || !email || !password || !passwordVerify || username === " ") {
             return res
                 .status(400)
                 .json({ errorMessage: "Please enter all required fields." });

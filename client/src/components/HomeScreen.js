@@ -60,7 +60,7 @@ const HomeScreen = () => {
             <List sx={{ width: '90%', left: '5%' }}>
                 {
                     store.lists.map((list, index) => (
-                        <Box sx={{ bgcolor: list.published ? '#d4d4f5' : '#fffff1', borderColor: 'text.primary', m: 1, border: 1, borderRadius: '16px' }}>
+                        <Box sx={{ bgcolor: list.published ? '#e8eaff' : '#fffff1', borderColor: 'text.primary', m: 1, border: 1, borderRadius: '16px' }}>
                             <ListCard
                                 key={list._id}
                                 index={index}

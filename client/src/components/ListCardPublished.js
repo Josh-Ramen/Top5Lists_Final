@@ -106,7 +106,7 @@ function ListCardPublished(props) {
                         <Grid item xs={2}>
                             <Grid container direction="row" alignItems="center">
                                 <Grid item>
-                                    <IconButton onClick={(event) => { handleLikeList(event, list._id) }} aria-label='delete'>
+                                    <IconButton disabled={auth.guest} onClick={(event) => { handleLikeList(event, list._id) }} aria-label='delete'>
                                         {rating !== 1 && <ThumbUpOutlinedIcon style={{ fontSize: '28pt' }} />}
                                         {rating === 1 && <ThumbUpIcon style={{ fontSize: '28pt' }} />}
                                     </IconButton>
@@ -117,7 +117,7 @@ function ListCardPublished(props) {
                         <Grid item xs={2}>
                             <Grid container direction="row" alignItems="center">
                                 <Grid item>
-                                    <IconButton onClick={(event) => { handleDislikeList(event, list._id) }} aria-label='delete'>
+                                    <IconButton disabled={auth.guest} onClick={(event) => { handleDislikeList(event, list._id) }} aria-label='delete'>
                                         {rating !== -1 && <ThumbDownOutlinedIcon style={{ fontSize: '28pt' }} />}
                                         {rating === -1 && <ThumbDownIcon style={{ fontSize: '28pt' }} />}
                                     </IconButton>
@@ -138,7 +138,7 @@ function ListCardPublished(props) {
                     <Grid item>
                         <Grid container direction="row" justifyContent="flex-start" alignItems="center" wrap="nowrap">
                             <Grid item xs={6}>
-                                <Box sx={{ bgcolor: '#2c2f70', borderColor: 'text.primary', border: 1, p: 2, borderRadius: '16px' }}>
+                                <Box sx={{ bgcolor: '#1976d2', borderColor: 'text.primary', border: 1, p: 2, borderRadius: '16px' }}>
                                     <Grid container direction="column" spacing={2}>
                                         <Grid item><div id="expand-list-item"><strong>1: {list.items[0]}</strong></div></Grid>
                                         <Grid item><div id="expand-list-item"><strong>2: {list.items[1]}</strong></div></Grid>
