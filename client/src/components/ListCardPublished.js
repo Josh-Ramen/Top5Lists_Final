@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from 'react'
 import { GlobalStoreContext } from '../store'
 import AuthContext from '../auth'
-import { Box, ListItem, IconButton, Grid } from '@mui/material';
+import { Box, ListItem, IconButton, Grid, List, TextField  } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -23,6 +23,7 @@ function ListCardPublished(props) {
     const { list, index } = props;
     const [expanded, setExpanded] = useState(false);
     const [rating, setRating] = useState(0);
+    const [comments, setComments] = useState(list.comments);
     const date = new Date(list.publishDate).toDateString();
 
     useEffect(() => { 
@@ -86,6 +87,24 @@ function ListCardPublished(props) {
         store.dislikeList(id, adding, switching);
     }
 
+    function addComment(event, id) {
+        if (event.keyCode === 13) {
+            const comment = {
+                username: auth.user.username,
+                comment: event.target.value
+            };
+
+            // Update comments locally
+            let newComments = comments;
+            newComments.unshift(comment);
+            setComments([...newComments]);
+
+            // Update in database
+            store.addComment(comment, id);
+            event.target.value = "";
+        }
+    }
+
     let listCard =
         <ListItem
             id={list._id}
@@ -136,7 +155,7 @@ function ListCardPublished(props) {
                 </Grid>
                 {expanded &&
                     <Grid item>
-                        <Grid container direction="row" justifyContent="flex-start" alignItems="center" wrap="nowrap">
+                        <Grid container spacing={1} direction="row" justifyContent="flex-start" alignItems="center" wrap="nowrap">
                             <Grid item xs={6}>
                                 <Box sx={{ bgcolor: '#1976d2', borderColor: 'text.primary', border: 1, p: 2, borderRadius: '16px' }}>
                                     <Grid container direction="column" spacing={2}>
@@ -147,6 +166,31 @@ function ListCardPublished(props) {
                                         <Grid item><div id="expand-list-item"><strong>5: {list.items[4]}</strong></div></Grid>
                                     </Grid>
                                 </Box>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Grid container direction="column" justifyContent="flex-start" wrap="nowrap">
+                                    {!auth.guest &&
+                                        <Grid item>
+                                            <TextField fullWidth varient="filled" label="Add comment..." onKeyDown={(event) => { addComment(event, list._id) }} />
+                                        </Grid>
+                                    }
+                                    <Grid item>
+                                        <List sx={{ maxHeight: "200px", overflow: 'auto' }}>
+                                            {
+                                                comments.map((comment) => (
+                                                    <ListItem>
+                                                        <Box sx={{ width: '100%', bgcolor: '#ffffff', borderColor: 'text.primary', border: 1, p: 1.2, borderRadius: '16px' }}>
+                                                            <Grid container direction="column" justifyContent="flex-start" alignItems="stretch" wrap="nowrap">
+                                                                <Grid item><div id="list-published"><strong>{comment.username}</strong></div></Grid>
+                                                                <Grid item><div id="list-comment"><strong>{comment.comment}</strong></div></Grid>
+                                                            </Grid>
+                                                        </Box>
+                                                    </ListItem>
+                                                ))
+                                            }
+                                        </List>
+                                    </Grid>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>

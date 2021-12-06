@@ -467,6 +467,17 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    // DEALS WITH ADDING COMMENTS TO A LIST
+    store.addComment = async function (comment, id) {
+        let response = await api.getTop5ListById(id);
+        if (response.data.success) {
+            let top5List = response.data.top5List;
+            top5List.comments.unshift(comment);
+
+            response = await api.updateTop5ListById(top5List._id, top5List);
+        }
+    }
+
     return (
         <GlobalStoreContext.Provider value={{
             store
