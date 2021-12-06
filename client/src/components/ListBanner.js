@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import GlobalStoreContext from '../store';
 import AuthContext from '../auth';
 import { Button, Grid, TextField, Menu, MenuItem, Typography, IconButton } from '@mui/material';
@@ -50,6 +50,15 @@ function ListBanner(props) {
         }
     }
 
+    function sort(by) {
+        store.setSort(by);
+        handleMenuClose();
+    }
+
+    useEffect(() => {
+        store.sortLists();
+    }, [store.sort]);
+
     let menu =
         <Menu
             anchorEl={anchorEl}
@@ -66,11 +75,11 @@ function ListBanner(props) {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem>Publish Date (Newest)</MenuItem>
-            <MenuItem>Publish Date (Oldest)</MenuItem>
-            <MenuItem>Views</MenuItem>
-            <MenuItem>Likes</MenuItem>
-            <MenuItem>Dislikes</MenuItem>
+            <MenuItem onClick={() => sort("publishNewest")}>Publish Date (Newest)</MenuItem>
+            <MenuItem onClick={() => sort("publishOldest")}>Publish Date (Oldest)</MenuItem>
+            <MenuItem onClick={() => sort("views")}>Views</MenuItem>
+            <MenuItem onClick={() => sort("likes")}>Likes</MenuItem>
+            <MenuItem onClick={() => sort("dislikes")}>Dislikes</MenuItem>
         </Menu>
 
     let banner =

@@ -23,7 +23,8 @@ export const GlobalStoreActionType = {
     SET_CURRENT_LIST: "SET_CURRENT_LIST",
     SET_EDIT_ACTIVE: "SET_EDIT_ACTIVE",
     RESET_STORE: "RESET_STORE",
-    SET_VIEW_MODE: "SET_VIEW_MODE"
+    SET_VIEW_MODE: "SET_VIEW_MODE",
+    SET_SORT: "SET_SORT"
 }
 
 // WITH THIS WE'RE MAKING OUR GLOBAL DATA STORE
@@ -36,7 +37,8 @@ function GlobalStoreContextProvider(props) {
         newListCounter: 0,
         editActive: false,
         listMarkedForDeletion: null,
-        mode: "home"
+        mode: "home",
+        sort: "publishNewest"
     });
     const history = useHistory();
 
@@ -56,7 +58,8 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter,
                     editActive: false,
                     listMarkedForDeletion: null,
-                    mode: "home"
+                    mode: "home",
+                    sort: store.sort
                 })
             }
             // CREATE A NEW LIST AND LOAD IT IN
@@ -67,7 +70,8 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter + 1,
                     editActive: true,
                     listMarkedForDeletion: null,
-                    mode: "home"
+                    mode: "home",
+                    sort: store.sort
                 })
             }
             // GET THE LISTS SO WE CAN PRESENT THEM
@@ -78,7 +82,8 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter,
                     editActive: false,
                     listMarkedForDeletion: null,
-                    mode: store.mode
+                    mode: store.mode,
+                    sort: store.sort
                 });
             }
             // PREPARE TO DELETE A LIST
@@ -89,7 +94,8 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter,
                     editActive: false,
                     listMarkedForDeletion: payload,
-                    mode: store.mode
+                    mode: store.mode,
+                    sort: store.sort
                 });
             }
             // STOP PREPARING TO DELETE A LIST
@@ -100,7 +106,8 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter,
                     editActive: false,
                     listMarkedForDeletion: null,
-                    mode: store.mode
+                    mode: store.mode,
+                    sort: store.sort
                 });
             }
             // LOAD A LIST FOR EDITING
@@ -111,7 +118,8 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter,
                     editActive: true,
                     listMarkedForDeletion: null,
-                    mode: store.mode
+                    mode: store.mode,
+                    sort: store.sort
                 });
             }
             // RESET TO DEFAULTS
@@ -122,7 +130,8 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: 0,
                     editActive: false,
                     listMarkedForDeletion: null,
-                    mode: "home"
+                    mode: "home",
+                    sort: "publishNewest"
                 });
             }
             // SET VIEW MODE
@@ -133,8 +142,21 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter,
                     editActive: false,
                     listMarkedForDeletion: null,
-                    mode: payload
+                    mode: payload,
+                    sort: store.sort
                 });
+            }
+            // SET SORT MODE
+            case GlobalStoreActionType.SET_SORT: {
+                return setStore({
+                    lists: store.lists,
+                    currentList: null,
+                    newListCounter: store.newListCounter,
+                    editActive: false,
+                    listMarkedForDeletion: null,
+                    mode: store.mode,
+                    sort: payload.sort
+                })
             }
             default:
                 return store;
@@ -200,13 +222,35 @@ function GlobalStoreContextProvider(props) {
                 lists = lists.filter((list) => list.published);
             }
 
+            // SORT BASED ON CURRENT SORTBY
+            function compareDates(a, b) {
+                if (!a && !b) {
+                    return 0;
+                } else if (!a) {
+                    return 1;
+                } else if (!b) {
+                    return -1;
+                }
+                return a.localeCompare(b);
+            }
+            if (store.sort === "publishNewest") {
+                lists.sort((a,b) => compareDates(a.publishDate, b.publishDate));
+            } else if (store.sort === "publishOldest") {
+                lists.sort((a,b) => compareDates(b.publishDate, a.publishDate));
+            } else if (store.sort === "views") {
+                lists.sort((a,b) => b.views - a.views);
+            } else if (store.sort === "likes") {
+                lists.sort((a,b) => b.likes - a.likes);
+            } else if (store.sort === "dislikes") {
+                lists.sort((a,b) => b.dislikes - a.dislikes);
+            }
+
             storeReducer({
                 type: GlobalStoreActionType.LOAD_LISTS,
                 payload: {
                     lists: lists
                 }
             });
-
             return lists;
         }
         else {
@@ -231,6 +275,52 @@ function GlobalStoreContextProvider(props) {
             type: GlobalStoreActionType.LOAD_LISTS,
             payload: {
                 lists: newLists
+            }
+        });
+    }
+
+    // SETS THE SORT METHOD
+    store.setSort = async function (by) {
+        storeReducer({
+            type: GlobalStoreActionType.SET_SORT,
+            payload: {
+                sort: by
+            }
+        });
+    }
+
+    // THIS FUNCTION IS FOR SORTING CURRENTLY-DISPLAYED LISTS, BASED ON CURRENT SORTBY SETTING
+    store.sortLists = function () {
+        let sortedLists = store.lists;
+
+        
+        function compareDates(a, b) {
+            if (!a && !b) {
+                return 0;
+            } else if (!a) {
+                return 1;
+            } else if (!b) {
+                return -1;
+            }
+            return a.localeCompare(b);
+        }
+        
+        if (store.sort === "publishNewest") {
+            sortedLists.sort((a,b) => compareDates(a.publishDate, b.publishDate));
+        } else if (store.sort === "publishOldest") {
+            sortedLists.sort((a,b) => compareDates(b.publishDate, a.publishDate));
+        } else if (store.sort === "views") {
+            sortedLists.sort((a,b) => b.views - a.views);
+        } else if (store.sort === "likes") {
+            sortedLists.sort((a,b) => b.likes - a.likes);
+        } else if (store.sort === "dislikes") {
+            sortedLists.sort((a,b) => b.dislikes - a.dislikes);
+        }
+
+        storeReducer({
+            type: GlobalStoreActionType.LOAD_LISTS,
+            payload: {
+                lists: sortedLists
             }
         });
     }
