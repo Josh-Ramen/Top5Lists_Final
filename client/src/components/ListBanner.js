@@ -31,8 +31,22 @@ function ListBanner(props) {
 
     function setViewMode(mode) {
         if (store.mode !== mode) {
-            console.log("setting mode to " + mode);
             store.setViewMode(mode);
+        }
+    }
+
+    function search(event) {
+        if (event.keyCode === 13) {
+            // Two cases, one for community lists and one for all the rest
+            if (store.mode === "community") {
+                // TODO community searching
+            } else {
+                if (event.target.value === "") {
+                    store.loadLists();
+                } else {
+                    store.searchLists(event.target.value);
+                }
+            }
         }
     }
 
@@ -84,7 +98,7 @@ function ListBanner(props) {
                         </Button>
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField fullWidth varient="filled" label="Search" />
+                        <TextField fullWidth varient="filled" label="Search" onKeyDown={search} />
                     </Grid>
                     <Grid item xs={2}>
                         <Grid container justifyContent="center" alignItems="center">

@@ -70,7 +70,7 @@ function GlobalStoreContextProvider(props) {
                     mode: "home"
                 })
             }
-            // GET ALL THE LISTS SO WE CAN PRESENT THEM
+            // GET THE LISTS SO WE CAN PRESENT THEM
             case GlobalStoreActionType.LOAD_LISTS: {
                 return setStore({
                     lists: payload.lists,
@@ -206,10 +206,33 @@ function GlobalStoreContextProvider(props) {
                     lists: lists
                 }
             });
+
+            return lists;
         }
         else {
             console.log("API FAILED TO GET THE LISTS");
         }
+    }
+
+    // THIS FUNCTION IS FOR WHEN YOU SEARCH FOR LISTS, AND IS BASED ON MODE
+    store.searchLists = async function (query) {
+        let newLists = await store.loadLists();
+
+        // Now determine how to search and then filter our lists based on the mode
+        if (store.mode === "home" || store.mode === "all") {
+            newLists = newLists.filter((list) => list.name.toLowerCase().indexOf(query.toLowerCase()) === 0);
+        } else if (store.mode === "user") {
+            newLists = newLists.filter((list) => list.ownerUsername.toLowerCase() === query.toLowerCase());
+        } else if (store.mode === "community") {
+            newLists = newLists.filter((list) => list.name.toLowerCase() === query.toLowerCase())
+        }
+
+        storeReducer({
+            type: GlobalStoreActionType.LOAD_LISTS,
+            payload: {
+                lists: newLists
+            }
+        });
     }
 
     // THE FOLLOWING 4 FUNCTIONS ARE FOR COORDINATING THE DELETION
@@ -272,6 +295,7 @@ function GlobalStoreContextProvider(props) {
         store.currentList.name = newName;
     }
 
+    // THESE TWO FUNCTIONS ARE FOR SAVING OR PUBLISHING A LIST BEING EDITED
     store.saveCurrentList = async function () {
         const list = store.currentList;
         store.closeCurrentList();
@@ -291,6 +315,7 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    // FUNCTION TO DEAL WITH EXPANDING (VIEWING) A LIST
     store.viewList = async function (index) {
         let list = store.lists[index];
         list.views += 1;
