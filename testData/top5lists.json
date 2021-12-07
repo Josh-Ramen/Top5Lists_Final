@@ -1,0 +1,668 @@
+[{
+  "_id": {
+    "$oid": "61aeb587420c9a389427b773"
+  },
+  "items": [
+    "Squid",
+    "Chicken",
+    "Pig",
+    "Shrimp",
+    "Cow"
+  ],
+  "comments": [],
+  "name": "Animals to Eat",
+  "ownerUsername": "JoshRamen",
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-07T01:15:51.234Z"
+  },
+  "views": 0,
+  "ratings": {},
+  "likes": 0,
+  "dislikes": 0,
+  "createdAt": {
+    "$date": "2021-12-07T01:14:47.803Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-07T01:56:02.526Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61aeb5c9420c9a389427b783"
+  },
+  "items": [
+    "Japan",
+    "Italy",
+    "Ireland",
+    "New Zealand",
+    "South Korea"
+  ],
+  "comments": [],
+  "name": "Countries You'd Like to Visit",
+  "ownerUsername": "JoshRamen",
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-07T01:16:14.595Z"
+  },
+  "views": 1,
+  "ratings": {},
+  "likes": 0,
+  "dislikes": 0,
+  "createdAt": {
+    "$date": "2021-12-07T01:15:53.295Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-07T02:06:50.189Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61aeb5df420c9a389427b793"
+  },
+  "items": [
+    "Pad Thai",
+    "Sushi",
+    "Pork Buns",
+    "Cheesecake",
+    "Chicken Tikka Masala"
+  ],
+  "comments": [],
+  "name": "Foods",
+  "ownerUsername": "JoshRamen",
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-07T01:16:30.932Z"
+  },
+  "views": 0,
+  "ratings": {},
+  "likes": 0,
+  "dislikes": 0,
+  "createdAt": {
+    "$date": "2021-12-07T01:16:15.669Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-07T01:56:04.452Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61aeb5ef420c9a389427b7a3"
+  },
+  "items": [
+    "OMORI",
+    "Mother 3",
+    "Hades",
+    "Enter the Gungeon",
+    "Super Smash Bros. Ultimate"
+  ],
+  "comments": [],
+  "name": "Games",
+  "ownerUsername": "JoshRamen",
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-07T01:16:53.230Z"
+  },
+  "views": 0,
+  "ratings": {},
+  "likes": 0,
+  "dislikes": 0,
+  "createdAt": {
+    "$date": "2021-12-07T01:16:31.890Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-07T01:56:05.691Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61aeb610420c9a389427b7b9"
+  },
+  "items": [
+    "A Silent Voice",
+    "Spider-Man: Into the Spider-Verse",
+    "Kizumonogatari",
+    "The Suicide Squad",
+    "Weathering With You"
+  ],
+  "comments": [],
+  "name": "Movies",
+  "ownerUsername": "JoshRamen",
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-07T01:17:30.766Z"
+  },
+  "views": 0,
+  "ratings": {},
+  "likes": 0,
+  "dislikes": 0,
+  "createdAt": {
+    "$date": "2021-12-07T01:17:04.071Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-07T01:56:06.859Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61aeb62c420c9a389427b7c9"
+  },
+  "items": [
+    "JavaScript",
+    "Java",
+    "Python",
+    "SML",
+    "C++"
+  ],
+  "comments": [],
+  "name": "Programming Languages",
+  "ownerUsername": "JoshRamen",
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-07T01:17:51.744Z"
+  },
+  "views": 1,
+  "ratings": {},
+  "likes": 0,
+  "dislikes": 0,
+  "createdAt": {
+    "$date": "2021-12-07T01:17:32.574Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-07T01:56:07.967Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61aeb667420c9a389427b7f2"
+  },
+  "items": [
+    "Lobster",
+    "Cow",
+    "Pig",
+    "Chicken",
+    "Salmon"
+  ],
+  "comments": [],
+  "name": "Animals to Eat",
+  "ownerUsername": "shmoeyjoey",
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-07T01:18:40.878Z"
+  },
+  "views": 5,
+  "ratings": {},
+  "likes": 0,
+  "dislikes": 0,
+  "createdAt": {
+    "$date": "2021-12-07T01:18:31.090Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-07T02:03:52.896Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61aeb6e5420c9a389427b80c"
+  },
+  "items": [
+    "StarCraft",
+    "Fallout 3",
+    "Civilization II",
+    "Katamari Damacy",
+    "Super Mario World"
+  ],
+  "comments": [],
+  "name": "Games",
+  "ownerUsername": "shmoeyjoey",
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-07T01:21:09.521Z"
+  },
+  "views": 0,
+  "ratings": {},
+  "likes": 0,
+  "dislikes": 0,
+  "createdAt": {
+    "$date": "2021-12-07T01:20:37.672Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-07T01:56:09.917Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61aeb70d420c9a389427b822"
+  },
+  "items": [
+    "Raiders of the Lost Ark",
+    "Goodfellas",
+    "Airplane!",
+    "Lawrence of Arabia",
+    "Pulp Fiction"
+  ],
+  "comments": [],
+  "name": "Movies",
+  "ownerUsername": "shmoeyjoey",
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-07T01:21:40.507Z"
+  },
+  "views": 0,
+  "ratings": {},
+  "likes": 0,
+  "dislikes": 0,
+  "createdAt": {
+    "$date": "2021-12-07T01:21:17.156Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-07T01:56:10.861Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61aeb72b420c9a389427b842"
+  },
+  "items": [
+    "Shine On You Crazy Diamond",
+    "Comfortably Numb",
+    "Pigs (Three Different Ones)",
+    "Time",
+    "Echoes (Live from Pompeii)"
+  ],
+  "comments": [],
+  "name": "Pink Floyd Songs",
+  "ownerUsername": "shmoeyjoey",
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-07T01:22:26.806Z"
+  },
+  "views": 0,
+  "ratings": {},
+  "likes": 0,
+  "dislikes": 0,
+  "createdAt": {
+    "$date": "2021-12-07T01:21:47.378Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-07T01:56:11.876Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61aeb762420c9a389427b867"
+  },
+  "items": [
+    "New York Yankees",
+    "New York Knicks",
+    "New York Islanders",
+    "Dallas Stars",
+    "Texas Rangers"
+  ],
+  "comments": [],
+  "name": "Professional Sports Teams",
+  "ownerUsername": "shmoeyjoey",
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-07T01:23:16.968Z"
+  },
+  "views": 0,
+  "ratings": {},
+  "likes": 0,
+  "dislikes": 0,
+  "createdAt": {
+    "$date": "2021-12-07T01:22:42.448Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-07T01:56:12.492Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61aeb950420c9a389427ba63"
+  },
+  "items": [
+    "Fish",
+    "Chicken",
+    "Lamb",
+    "Goat",
+    "Shrimp"
+  ],
+  "comments": [],
+  "name": "Animals to Eat",
+  "ownerUsername": "absaad",
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-07T01:31:11.574Z"
+  },
+  "views": 0,
+  "ratings": {},
+  "likes": 0,
+  "dislikes": 0,
+  "createdAt": {
+    "$date": "2021-12-07T01:30:56.170Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-07T01:56:13.582Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61aebc1e43beab4e9c9290dd"
+  },
+  "items": [
+    "Gyro",
+    "Burgers",
+    "Ice Cream",
+    "Biryani",
+    "Sushi"
+  ],
+  "comments": [],
+  "name": "Foods",
+  "ownerUsername": "absaad",
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-07T01:43:04.221Z"
+  },
+  "views": 0,
+  "ratings": {},
+  "likes": 0,
+  "dislikes": 0,
+  "createdAt": {
+    "$date": "2021-12-07T01:42:54.283Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-07T01:56:14.150Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61aebc4f43beab4e9c929103"
+  },
+  "items": [
+    "Legend of Zelda: Ocarina of Time",
+    "Super Smash Bros. Ultimate",
+    "Metal Gear Solid 3: Snake Eater",
+    "Minecraft",
+    "Legend of Zelda: Skyward Sword"
+  ],
+  "comments": [],
+  "name": "Games",
+  "ownerUsername": "absaad",
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-07T01:44:18.364Z"
+  },
+  "views": 6,
+  "ratings": {},
+  "likes": 0,
+  "dislikes": 0,
+  "createdAt": {
+    "$date": "2021-12-07T01:43:43.101Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-07T02:04:00.753Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61aebcfa43beab4e9c92914b"
+  },
+  "items": [
+    "Java",
+    "Python",
+    "C#",
+    "C++",
+    "Javascript"
+  ],
+  "comments": [],
+  "name": "Programming Languages",
+  "ownerUsername": "absaad",
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-07T01:46:51.667Z"
+  },
+  "views": 0,
+  "ratings": {},
+  "likes": 0,
+  "dislikes": 0,
+  "createdAt": {
+    "$date": "2021-12-07T01:46:34.554Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-07T01:56:16.981Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61aebd8443beab4e9c9291a7"
+  },
+  "items": [
+    "Japan",
+    "Vietnam",
+    "Israel",
+    "South Korea",
+    "Italy"
+  ],
+  "comments": [],
+  "name": "Countries you'd like to visit",
+  "ownerUsername": "Kano",
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-07T01:49:03.840Z"
+  },
+  "views": 0,
+  "ratings": {},
+  "likes": 0,
+  "dislikes": 0,
+  "createdAt": {
+    "$date": "2021-12-07T01:48:52.419Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-07T01:56:18.429Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61aebdac43beab4e9c9291cf"
+  },
+  "items": [
+    "Spirited Away",
+    "A Silent Voice",
+    "Parasite",
+    "Howl's Moving Castle",
+    "Castle in the Sky"
+  ],
+  "comments": [],
+  "name": "Movies",
+  "ownerUsername": "Kano",
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-07T01:49:57.678Z"
+  },
+  "views": 1,
+  "ratings": {},
+  "likes": 0,
+  "dislikes": 0,
+  "createdAt": {
+    "$date": "2021-12-07T01:49:32.293Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-07T01:56:19.006Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61aebdce43beab4e9c9291e5"
+  },
+  "items": [
+    "MIPS",
+    "Java",
+    "Python",
+    "Javascript",
+    "OCaml"
+  ],
+  "comments": [],
+  "name": "Programming Languages",
+  "ownerUsername": "Kano",
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-07T01:50:19.723Z"
+  },
+  "views": 0,
+  "ratings": {},
+  "likes": 0,
+  "dislikes": 0,
+  "createdAt": {
+    "$date": "2021-12-07T01:50:06.273Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-07T01:56:20.807Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61aebddc43beab4e9c9291f5"
+  },
+  "items": [
+    "Spongebob Squarepants",
+    "Avatar: The Last Airbender",
+    "Regular Show",
+    "Adventure Time",
+    "Doctor Who"
+  ],
+  "comments": [],
+  "name": "TV Shows",
+  "ownerUsername": "Kano",
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-07T01:50:50.105Z"
+  },
+  "views": 0,
+  "ratings": {},
+  "likes": 0,
+  "dislikes": 0,
+  "createdAt": {
+    "$date": "2021-12-07T01:50:20.992Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-07T01:56:22.511Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61aebe6143beab4e9c929215"
+  },
+  "items": [
+    "Chicken",
+    "Cow",
+    "Lamb",
+    "Salmon",
+    "Tuna"
+  ],
+  "comments": [],
+  "name": "Animals to Eat",
+  "ownerUsername": "samekhan",
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-07T01:52:46.037Z"
+  },
+  "views": 0,
+  "ratings": {},
+  "likes": 0,
+  "dislikes": 0,
+  "createdAt": {
+    "$date": "2021-12-07T01:52:33.666Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-07T01:53:06.958Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61aebe7343beab4e9c929225"
+  },
+  "items": [
+    "Russia",
+    "Japan",
+    "Norway",
+    "Brazil",
+    "Korea"
+  ],
+  "comments": [],
+  "name": "Countries You'd LIKE to VISIT",
+  "ownerUsername": "samekhan",
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-07T01:53:04.858Z"
+  },
+  "views": 0,
+  "ratings": {},
+  "likes": 0,
+  "dislikes": 0,
+  "createdAt": {
+    "$date": "2021-12-07T01:52:51.025Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-07T01:53:06.535Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61aebe8343beab4e9c92923d"
+  },
+  "items": [
+    "Spider-Man: No Way Home",
+    "Spider-Man: Far From Home",
+    "Spider-Man: Into the Spider-Verse",
+    "Spider-Man 2",
+    "Spider-Man 3"
+  ],
+  "comments": [],
+  "name": "Movies",
+  "ownerUsername": "samekhan",
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-07T01:53:39.556Z"
+  },
+  "views": 0,
+  "ratings": {},
+  "likes": 0,
+  "dislikes": 0,
+  "createdAt": {
+    "$date": "2021-12-07T01:53:07.922Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-07T01:53:41.476Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61aebea643beab4e9c929251"
+  },
+  "items": [
+    "Toronto Raptors",
+    "New York Knicks",
+    "Los Angeles Lakers",
+    "Chicago Bulls",
+    "Brooklyn Nets"
+  ],
+  "comments": [],
+  "name": "Professional Sports Teams",
+  "ownerUsername": "samekhan",
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-07T01:54:22.036Z"
+  },
+  "views": 0,
+  "ratings": {},
+  "likes": 0,
+  "dislikes": 0,
+  "createdAt": {
+    "$date": "2021-12-07T01:53:42.173Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-07T01:54:23.326Z"
+  },
+  "__v": 1
+}]

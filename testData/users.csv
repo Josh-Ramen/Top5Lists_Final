@@ -1,0 +1,6 @@
+__v,_id,createdAt,email,firstName,lastName,passwordHash,updatedAt,username
+0,61a8552d517d6149c4a4ecf8,2021-12-02T05:10:05.811Z,joshua.rajan@stonybrook.edu,Joshua,Rajan,$2a$10$SG7KtOVEA9FsSQRlxRgtNOA58DudGrOyDPRIK7h1UiYZ.3Gqm8.K.,2021-12-02T05:10:05.811Z,JoshRamen
+0,61ad31adae2c3d4e70e53f06,2021-12-05T21:39:57.845Z,joe.shmo@McKillaGorilla.com,Joe,Shmo,$2a$10$NymPkcqF8qTi6w/.6Vp6QuROSAqJvwFBzaNbn3JBQ7zK4spVDJWZK,2021-12-05T21:39:57.845Z,shmoeyjoey
+0,61aeb93b420c9a389427ba57,2021-12-07T01:30:35.698Z,absaad@gmail.com,Abdullah,Saad,$2a$10$Q2/ZsckqA1Ubl/QoJvnlVez2kCJO2OzCR.D888j5nr2oVXKeEPsZq,2021-12-07T01:30:35.698Z,absaad
+0,61aebd4a43beab4e9c929197,2021-12-07T01:47:54.693Z,kano@dragon.com,Anthony,Tran,$2a$10$WNol0OEWKTNWEYdUZNbLwu7jVHogwH.wwN73xbw9SKXDNVLUzqlCy,2021-12-07T01:47:54.693Z,Kano
+0,61aebe5f43beab4e9c92920d,2021-12-07T01:52:31.701Z,sameereal@gmail.com,Sameer,Khan,$2a$10$KifZ6jeOF707gcNc3bcGu.GDN2M19CYO2n4q6T0h/qSyXWIp6WaXS,2021-12-07T01:52:31.701Z,samekhan
