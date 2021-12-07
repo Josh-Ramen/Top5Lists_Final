@@ -4,6 +4,7 @@ import HomeScreen from './HomeScreen'
 import HomeWrapper from './HomeWrapper'
 import ListCardUnpublished from './ListCardUnpublished' 
 import ListCardPublished from './ListCardPublished'
+import ListCardCommunity from './ListCardCommunity'
 import LoginScreen from './LoginScreen'
 import RegisterScreen from './RegisterScreen'
 import SplashScreen from './SplashScreen'
@@ -21,7 +22,8 @@ export {
     HomeScreen,
     HomeWrapper,
     ListCardUnpublished,
-    ListCardPublished, 
+    ListCardPublished,
+    ListCardCommunity,
     LoginScreen,
     RegisterScreen,
     SplashScreen,

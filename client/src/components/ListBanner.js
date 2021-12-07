@@ -39,7 +39,11 @@ function ListBanner(props) {
         if (event.keyCode === 13) {
             // Two cases, one for community lists and one for all the rest
             if (store.mode === "community") {
-                // TODO community searching
+                if (event.target.value === "") {
+                    store.loadCommunityLists();
+                } else {
+                    store.searchCommunityLists(event.target.value);
+                }
             } else {
                 if (event.target.value === "") {
                     store.loadLists();
@@ -47,6 +51,7 @@ function ListBanner(props) {
                     store.searchLists(event.target.value);
                 }
             }
+            event.target.value = "";
         }
     }
 
@@ -88,22 +93,22 @@ function ListBanner(props) {
                 <Grid container justifyContent="flex-start" sx={{ p: 1 }}>
                     <Grid item xs={1}>
                         <Button disabled={auth.guest} onClick={() => setViewMode("home")} >
-                            <HomeOutlinedIcon style={{ fontSize: '32pt', color: "black", opacity: auth.guest ? 0.25 : 1 }} />
+                            <HomeOutlinedIcon style={{ fontSize: '32pt', color: store.mode === "home" ? "#1976d2" : "black", opacity: auth.guest ? 0.25 : 1 }} />
                         </Button>
                     </Grid>
                     <Grid item xs={1}>
                         <Button onClick={() => setViewMode("all")} >
-                            <GroupsOutlinedIcon style={{ fontSize: '32pt', color: "black" }} />
+                            <GroupsOutlinedIcon style={{ fontSize: '32pt', color: store.mode === "all" ? "#1976d2" : "black" }} />
                         </Button>
                     </Grid>
                     <Grid item xs={1}>
                         <Button onClick={() => setViewMode("user")} >
-                            <PersonOutlinedIcon style={{ fontSize: '32pt', color: "black" }} />
+                            <PersonOutlinedIcon style={{ fontSize: '32pt', color: store.mode === "user" ? "#1976d2" : "black" }} />
                         </Button>
                     </Grid>
                     <Grid item xs={1}>
                         <Button onClick={() => setViewMode("community")}>
-                            <FunctionsIcon style={{ fontSize: '32pt', color: "black" }} />
+                            <FunctionsIcon style={{ fontSize: '32pt', color: store.mode === "community" ? "#1976d2" : "black" }} />
                         </Button>
                     </Grid>
                     <Grid item xs={6}>

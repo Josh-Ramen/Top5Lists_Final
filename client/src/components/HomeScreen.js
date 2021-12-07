@@ -47,10 +47,10 @@ const HomeScreen = () => {
     }, []);
 
     useEffect(() => {
-        if (store.mode !== "community") {
+        if (store.mode !== "community" && store.mode !== "user") {
             store.loadLists();
-        } else {
-            // TODO load community lists
+        } else if (store.mode !== "user") {
+            store.loadCommunityLists();
         }
     }, [store.mode])
 
